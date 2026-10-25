@@ -127,4 +127,12 @@ and should not be exposed beyond a trusted lab network.
 - [x] 4. CLI: read, write, subscribe; sensor vs attribute vs actuator
 - [x] 5. Custom VSS overlay and restriction checks
 - [x] 6. Python feeder on pi-b, live monitoring from the Mac
-- [ ] 7. Wrap-up
+- [x] 7. Wrap-up
+
+## License
+
+See [LICENSE](LICENSE).
+
+Eclipse Kuksa, the Kuksa Databroker container image and the `kuksa-client` package are
+separate projects with their own licenses; this repository only contains lab scripts,
+notes and a custom VSS overlay.
