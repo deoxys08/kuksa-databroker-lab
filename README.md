@@ -49,13 +49,19 @@ The Pis hold no Git credentials.
 .env.example              # template for local IPs (.env itself is git-ignored)
 scripts/
   databroker-up.sh        # start Databroker on pi-a (rootless Podman)
+  feeder-up.sh            # run the feeder on pi-b (creates a venv on first run)
   sync.sh                 # rsync this repo to a Pi
 vss/
   lab-overlay.json        # custom VSS branch Vehicle.Lab.Feeder (loaded next to VSS 6.0)
+feeder/
+  speed_feeder.py         # provider: simulated speed, heartbeat, VIN, actuator handling
+  monitor.py              # consumer: compact live view via subscribe
+  requirements.txt
 docs/
   01-setup-and-workflow.md
   02-cli-basics.md
   03-vss-and-custom-overlay.md
+  04-feeder-and-monitoring.md
 ```
 
 ## Quick start
@@ -92,6 +98,21 @@ docs/
    kuksa-client grpc://<PI_A_LAN_IP>:55555
    ```
 
+5. Start the feeder on pi-b and watch it from the Mac:
+
+   ```bash
+   ./scripts/sync.sh pi-b
+   ssh pi-b '~/kuksa-lab/scripts/feeder-up.sh'          # terminal 1
+   python feeder/monitor.py --host <PI_A_LAN_IP>        # terminal 2
+   ```
+
+   Change the feeder's behaviour from a third terminal with `kuksa-client`:
+
+   ```
+   setTargetValue Vehicle.Lab.Feeder.Mode HIGHWAY
+   setTargetValue Vehicle.Lab.Feeder.CycleTime 1000
+   ```
+
 ## Security note
 
 The Databroker runs with `--insecure` (no TLS, no authorization). The port is therefore
@@ -105,5 +126,5 @@ and should not be exposed beyond a trusted lab network.
 - [x] 3. Repo and Mac-to-Pi workflow
 - [x] 4. CLI: read, write, subscribe; sensor vs attribute vs actuator
 - [x] 5. Custom VSS overlay and restriction checks
-- [ ] 6. Python feeder on pi-b, live monitoring from the Mac
+- [x] 6. Python feeder on pi-b, live monitoring from the Mac
 - [ ] 7. Wrap-up
