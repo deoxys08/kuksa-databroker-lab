@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Kuksa Databroker'i rootless Podman ile baslatir (pi-a uzerinde calisir).
-# Port yalnizca localhost + LAN IP'ye acilir (VPN/Tailscale arayuzune acilmaz).
+# Start Eclipse Kuksa Databroker with rootless Podman (runs on pi-a).
+# The port is published only on localhost and the LAN IP, never on VPN/Tailscale interfaces.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 [ -f .env ] && source .env
-: "${PI_A_IP:?PI_A_IP tanimli degil. .env.example dosyasini .env olarak kopyala.}"
+: "${PI_A_IP:?PI_A_IP is not set. Copy .env.example to .env and fill it in.}"
 
 if ! ip -4 -o addr show | grep -q "inet ${PI_A_IP}/"; then
-  echo "HATA: ${PI_A_IP} bu makinede yok. Mevcut IP'ler: $(hostname -I)" >&2
+  echo "ERROR: ${PI_A_IP} is not assigned to this host. Current IPs: $(hostname -I)" >&2
   exit 1
 fi
 

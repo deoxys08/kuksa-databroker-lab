@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Repoyu bir Pi'ye kopyalar. Kullanim: ./scripts/sync.sh pi-a
+# Copy the repo to a Raspberry Pi over SSH (LAN).
+# Usage: ./scripts/sync.sh <ssh-host>    e.g. ./scripts/sync.sh pi-a
 set -euo pipefail
 cd "$(dirname "$0")/.."
-HOST="${1:?kullanim: sync.sh <ssh-host>}"
+HOST="${1:?usage: sync.sh <ssh-host>}"
 rsync -av --delete --exclude .git --exclude .venv --exclude __pycache__ --exclude .vssclient_history \
   ./ "${HOST}:~/kuksa-lab/"
