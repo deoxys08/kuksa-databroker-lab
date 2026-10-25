@@ -1,0 +1,45 @@
+{
+  "Vehicle": {
+    "type": "branch",
+    "description": "High-level vehicle data.",
+    "children": {
+      "Lab": {
+        "type": "branch",
+        "description": "Custom signals for the Kuksa Databroker lab. Not part of standard VSS.",
+        "children": {
+          "Feeder": {
+            "type": "branch",
+            "description": "State and control of the simulated speed feeder.",
+            "children": {
+              "Heartbeat": {
+                "type": "sensor",
+                "datatype": "uint32",
+                "description": "Counter incremented by the feeder on every publish cycle. Used to detect a stalled feeder."
+              },
+              "Version": {
+                "type": "attribute",
+                "datatype": "string",
+                "default": "0.1.0",
+                "description": "Version of the feeder software."
+              },
+              "Mode": {
+                "type": "actuator",
+                "datatype": "string",
+                "allowed": ["CITY", "HIGHWAY", "STOP_AND_GO"],
+                "description": "Driving profile used by the feeder to generate speed values."
+              },
+              "CycleTime": {
+                "type": "actuator",
+                "datatype": "uint16",
+                "unit": "ms",
+                "min": 50,
+                "max": 5000,
+                "description": "Interval between two published speed values."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
