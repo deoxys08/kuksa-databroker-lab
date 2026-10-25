@@ -50,9 +50,12 @@ The Pis hold no Git credentials.
 scripts/
   databroker-up.sh        # start Databroker on pi-a (rootless Podman)
   sync.sh                 # rsync this repo to a Pi
+vss/
+  lab-overlay.json        # custom VSS branch Vehicle.Lab.Feeder (loaded next to VSS 6.0)
 docs/
   01-setup-and-workflow.md
   02-cli-basics.md
+  03-vss-and-custom-overlay.md
 ```
 
 ## Quick start
@@ -101,6 +104,6 @@ and should not be exposed beyond a trusted lab network.
 - [x] 2. Databroker in rootless Podman
 - [x] 3. Repo and Mac-to-Pi workflow
 - [x] 4. CLI: read, write, subscribe; sensor vs attribute vs actuator
-- [ ] 5. Custom VSS overlay
+- [x] 5. Custom VSS overlay and restriction checks
 - [ ] 6. Python feeder on pi-b, live monitoring from the Mac
 - [ ] 7. Wrap-up
