@@ -3,5 +3,5 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 HOST="${1:?kullanim: sync.sh <ssh-host>}"
-rsync -av --delete --exclude .git --exclude .venv --exclude __pycache__ \
+rsync -av --delete --exclude .git --exclude .venv --exclude __pycache__ --exclude .vssclient_history \
   ./ "${HOST}:~/kuksa-lab/"

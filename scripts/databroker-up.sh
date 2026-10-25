@@ -4,7 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 [ -f .env ] && source .env
-: "${PI_A_IP:?PI_A_IP tanimli degil. .env.example'i .env olarak kopyalayip doldur.}"
+: "${PI_A_IP:?PI_A_IP tanimli degil. .env.example dosyasini .env olarak kopyala.}"
 
 if ! ip -4 -o addr show | grep -q "inet ${PI_A_IP}/"; then
   echo "HATA: ${PI_A_IP} bu makinede yok. Mevcut IP'ler: $(hostname -I)" >&2
